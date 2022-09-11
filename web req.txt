@@ -1,0 +1,26 @@
+#client
+photo selection *
+review/feedback
+user dashboard
+album slideshow
+user all meadia folders
+customized products
+*orders (cancel)
+
+#admin
+bookings mamangement /
+orders /
+apply leave /
+leave requests /
+
+#owner
+client mamangement - media /
+staff leave mamangement
+product mamangement 
+booking mamangement 
+product orders 
+records - leave, orders, booking 
+report 
+
+#SRS
+city table
