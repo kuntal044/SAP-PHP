@@ -3962,7 +3962,7 @@
                           <label for="ledwall"> LED Wall </label>
                         </td>
                         <td>
-                          <input type="checkbox" id="ledwall" onclick="est(this);" name="services[]" value="LED wall + live">
+                          <input type="checkbox" id="ledwall" onclick="est(this);" name="services[]" value="LED wall">
                         </td>
                       </tr>
                       <tr>
@@ -4024,24 +4024,9 @@
   while ($row = mysqli_fetch_array($results)) {
     $amt[$row['SrvEveName']]=$row['SrvEveCharges'];
   }
-  ?>
+  // $values="<script> document.write(str); </script>";
+  // echo $values;
 
- 
-
-<script type="text/javascript" src="../../js/jquery-3.4.1.min.js"></script>
-<script type="text/javascript" src="../../js/bootstrap.js"></script>
-
-
-
-<?php
-    // $values="<script> document.write(str); </script>";
-    // echo $values;
-  function pass($val) {
-    $values="<script> document.write(str); </script>";
-    echo $val;
-    $values=$val;
-    echo $values;
-  }
 ?>
 
 <script> 

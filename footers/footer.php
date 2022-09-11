@@ -31,6 +31,9 @@
   </div>
 </section>
 
+<script type="text/javascript" id="jq" src="../../js/jquery-3.4.1.min.js"></script>
+<script type="text/javascript" id="boot" src="../../js/bootstrap.js"></script>
+
 <script>
     var path = window.location.pathname;
     var page = path.split("/").pop();
@@ -40,23 +43,8 @@
         document.getElementById("yt").src="images/youtube.png";
         document.getElementById("insta").src="images/instagram.png";
         document.getElementById("fb").src="images/fb.png";
+        document.getElementById("jq").src="js/jquery-3.4.1.min.js";
+        document.getElementById("boot").src="js/bootstrap.js";
     }
-    else if(page=="register.php") {
-
-    }
-    else if(page=="login.php") {
-        
-    }
-    else if(page=="about.php") {
-        
-    }
-    else if(page=="portfolio.php") {
-       
-    }
-    else if(page=="feedbacks.php") {
-        
-    }
-    else if(page=="contact.php") {
-        
-    }
+   
 </script>

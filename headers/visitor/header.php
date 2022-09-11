@@ -59,7 +59,7 @@
         document.getElementById("ab").href="pages/visitor/about.php";
         document.getElementById("port").href="pages/visitor/portfolio.php";
         document.getElementById("feed").href="pages/visitor/feedbacks.php";
-        document.getElementById("con").href="pages/visitor/contact.php";
+        document.getElementById("cont").href="pages/visitor/contact.php";
     }
     if(page=="register.php") {
         document.getElementById("register").className = "nav-item active";

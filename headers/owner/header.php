@@ -37,7 +37,7 @@
                         <a class="nav-link" href="ownerhistory.php"> History / Past <span class="sr-only">(current)</span></a>
                       </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="../../index.php" onclick="logout()"> Log Out </a>
+                    <a class="nav-link" href="../../index.php" onlclick="logout();"> Log Out </a>
                     </li>
                   </ul>
                 </div>
@@ -57,22 +57,22 @@
     if(page=="ownerclients.php") {
         document.getElementById("clients").className = "nav-item active";
     }
-    if(page=="ownerbooking.php") {
+    else if(page=="ownerbooking.php") {
         document.getElementById("book").className="nav-item active";
     }
-    if(page=="ownerleaverequests.php") {
+    else if(page=="ownerleaverequests.php") {
         document.getElementById("req").className="nav-item active";
     }
-    if(page=="ownermanageproduct.php") {
+    else if(page=="ownermanageproduct.php") {
         document.getElementById("manage").className="nav-item active";
     }
-    if(page=="ownerorders.php") {
+    else if(page=="ownerorders.php") {
         document.getElementById("orders").className="nav-item active";
     }
-    if(page=="ownerleaves.php") {
+    else if(page=="ownerleaves.php") {
         document.getElementById("leaves").className="nav-item active";
     }
-    if(page=="ownerhistory.php") {
+    else if(page=="ownerhistory.php") {
         document.getElementById("history").className="nav-item active";
     }
 

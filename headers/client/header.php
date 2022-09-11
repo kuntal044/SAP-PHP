@@ -3,7 +3,7 @@
         <div class="row">
           <div class="col-lg-11 offset-lg-1">
             <nav class="navbar navbar-expand-lg custom_nav-container ">
-              <a class="navbar-brand" href="index.php">
+              <a class="navbar-brand" href="../../index.php">
                 <img src="../../images/logo.jpg" alt="">
                 </a>
               <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
@@ -39,11 +39,10 @@
                         <a class="nav-link" href="clientorders.php"> My Orders </a>
                       </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="../../index.php" onlclick="logout()"> Log Out </a>
+                      <a class="nav-link" href="../../index.php" onlclick="logout();"> Log Out </a>
                     </li>
                   </ul>
                 </div>
-
 
               </div>
             </nav>
