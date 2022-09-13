@@ -3949,7 +3949,7 @@
                  <div>
                     <h4> Services :- </h4>
                     <table>
-                      <tr>
+                      <!-- <tr>
                         <td>
                           <label for="drone"> Drone </label>
                         </td>
@@ -3980,7 +3980,26 @@
                         <td>
                           <input type="checkbox" id="candid" name="services[]"  onclick="est(this);" value="candid photographer">
                         </td>
-                      </tr>
+                      </tr> -->
+                      <?php
+                      $db = mysqli_connect('localhost', 'root', '', 'sap');
+                      $results = mysqli_query($db, "SELECT SrvEveName,SrvEveCharges FROM tbl_service_events;");
+                      while ($row = mysqli_fetch_array($results)) {
+                          $amt[$row['SrvEveName']]=$row['SrvEveCharges'];
+                          $serv=$row['SrvEveName'];  
+                          // echo '<script> alert("'.$serv.'");</script>';
+                          ?>
+                      <tr>
+                        <td>
+                          <label for=" <?php echo $serv;?>"> <?php echo ucwords($serv); ?> </label>
+                        </td>
+                        <td>
+                          <input type="checkbox" id="<?php echo $serv;?> " onclick="est(this);" name="services[]" value="<?php echo $serv;?>">
+                        </td>
+                      </tr> 
+                    <?php
+                    }
+                ?>
                     </table> <br> 
                     <h5> Estimated Budget = <span id="est" > 0 </span> </h5>
                     <br> <br>
