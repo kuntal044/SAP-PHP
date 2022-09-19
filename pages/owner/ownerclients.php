@@ -24,6 +24,14 @@
   <link href="../../css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="../../css/responsive.css" rel="stylesheet" />
+
+  <style>
+    table, tr, td {
+      border: 1px solid black;
+      text-align: center;
+      padding: 5px;
+    }
+  </style>
 </head>
 
 <body class="sub_page">
@@ -42,7 +50,7 @@
       <div class="container">
         <div class="heading_container">
           <h2>
-            Clients Management
+            User Management
           </h2>
           <p>
             Everything You want to Know about Your Clients
@@ -53,70 +61,63 @@
             <div class="col-md-8 mx-auto">
                 <div class="contact_form-container"> 
                   <form method="post">
-                  <hr> 
-                  <p> First Name : Kalash <p> 
-                  <p> Middle Name : Abhay <p>  
-                  <p> Last Name : Shah </p>   
-                  <p> Username : kalash19  </p> 
-                  <p> Phone Number : 987456312  </p> 
-                  <p> Email : kalash@gmail.com </p>
-                  <p> Address : 101, B Wing, Gokuldham Society, Powder Gali, Mumbai  </p> 
-                  <button formaction="clientprofile.php"> Edit </button>
-                  <button formaction="ownerclients.php"> Block </button>
-                  <button formaction="ownerclients.php"> Media </button>
-                  
-                  <hr> <br>
+                      <table>
+                        <tr>
+                          <td> ID </td>
+                          <td> First Name </td>
+                          <td> Middle Name </td>
+                          <td> Last Name </td>
+                          <td> User Name </td>
+                          <td> Password </td>
+                          <td> Phone Number </td>
+                          <td> Email </td>
+                          <td> Address </td>
+                          <td> Actions </td>
 
-                  <p> First Name : Jainam <p> 
-                  <p> Middle Name : Abhay <p>  
-                  <p> Last Name : Shah </p>   
-                  <p> Username : jainam  </p> 
-                  <p> Phone Number : 987456312  </p> 
-                  <p> Email : jainam@gmail.com </p>
-                  <p> Address : 101, B Wing, Gokuldham Society, Powder Gali, Mumbai  </p> 
-                  <button formaction="clientprofile.php"> Edit </button>
-                  <button formaction="ownerclients.php"> Block </button>
-                  <button formaction="ownerclients.php"> Media </button>
-                  
-                  <hr> <br>
-                  
-                  <p> First Name : Varshal <p> 
-                  <p> Middle Name : Jignesh <p>  
-                  <p> Last Name : Patel </p>   
-                  <p> Username : vaps  </p> 
-                  <p> Phone Number : 987456312  </p> 
-                  <p> Email : varshal@gmail.com </p>
-                  <p> Address : 101, B Wing, Gokuldham Society, Powder Gali, Mumbai  </p>
-                  <button formaction="clientprofile.php"> Edit </button>
-                  <button formaction="ownerclients.php"> Block </button> 
-                  <button formaction="ownerclients.php"> Media </button>
-                  <hr> <br>
-                  
-                    <p> First Name : Kalash <p> 
-                    <p> Middle Name : Abhay <p>  
-                    <p> Last Name : Shah </p>   
-                    <p> Username : kalash19  </p> 
-                    <p> Phone Number : 987456312  </p> 
-                    <p> Email : kalash@gmail.com </p>
-                    <p> Address : 101, B Wing, Gokuldham Society, Powder Gali, Mumbai  </p> 
-                    <button formaction="clientprofile.php"> Edit </button>
-                    <button formaction="ownerclients.php"> Block </button>
-                    <button formaction="ownerclients.php"> Media </button>
-                  
-                    <hr> <br>
-                  
-                      <p> First Name : Kalash <p> 
-                      <p> Middle Name : Abhay <p>  
-                      <p> Last Name : Shah </p>   
-                      <p> Username : kalash19  </p> 
-                      <p> Phone Number : 987456312  </p> 
-                      <p> Email : kalash@gmail.com </p>
-                      <p> Address : 101, B Wing, Gokuldham Society, Powder Gali, Mumbai  </p> 
-                      <button formaction="clientprofile.php"> Edit </button>
-                      <button formaction="ownerclients.php"> Block </button>
-                      <button formaction="ownerclients.php"> Media </button>
-                  
-                      <hr> <br>
+                        </tr>
+                    <?php 
+                      $db = mysqli_connect('localhost', 'root', 'root', 'sap');
+                      $sql="select * from users;";
+                      $results = mysqli_query($db,$sql);
+                      while ($data = mysqli_fetch_array($results)) { ?>
+                        <tr>
+                          <td>
+                            <?php echo $data['uid']; ?>
+                          </td>
+                          <td>
+                            <?php echo $data['fname']; ?>
+                          </td>
+                          <td>
+                            <?php echo $data['mname']; ?>
+                          </td>
+                          <td>
+                            <?php echo $data['lname']; ?>
+                          </td>
+                          <td>
+                            <?php echo $data['username']; ?>
+                          </td>
+                          <td>
+                            <?php echo $data['password']; ?>
+                          </td>
+                          <td>
+                            <?php echo $data['contact']; ?>
+                          </td>
+                          <td>
+                            <?php echo $data['email']; ?>
+                          </td>
+                          <td>
+                            <?php echo $data['address']; ?>
+                          </td>
+                          <td>
+                            <a href="ownerclients.php?edit=<?php echo $data['uid'];?>"> Edit </a>
+                            <a href="ownerclients.php?delete=<?php echo $data['uid'];?>"> Delete </a>
+                          </td>
+                        </tr> 
+                        <?php
+                      }
+                    ?>
+
+                      </table>
                     </form>
                 </div>
               </div>
@@ -124,10 +125,65 @@
           </div>
         </div>
       </section>
-  
-  
-  
 
+  <?php
+      if(isset($_GET['del'])){
+    $uid=$_GET['del'];
+    $sql="Delete from info where id=$uid;";
+    mysqli_query($db, $sql);
+    $_SESSION['message']="Record Deleted Successfully.";
+    header('location: records.php');
+  ?>
+
+<?php
+        if(isset($_GET['edit'])){ ?>
+                <form method="POST">
+                  <div>
+                    <label> First Name : </label>
+                    <input type="text" name="fname">
+                  </div>
+                  <div>
+                    <label> Middle Name : </label>
+                    <input type="text" name="mname">
+                  </div>
+                  <div>
+                    <label> Last Name : </label>
+                    <input type="text" name="lname">
+                  </div>
+                  <div>
+                    <label> User Name : </label>
+                    <input type="text" name="user">
+                  </div>
+                  <div>
+                    <label> Password : </label>
+                    <input type="password" name="pass">
+                  </div>
+                  <div>
+                    <label> Confirm Password : </label>
+                    <input type="password" name="cpass">
+                  </div>
+                  <div>
+                    <label> Phone Number : </label>
+                    <input type="number" name="num">
+                  </div>
+                  <div>
+                    <label> Email : </label>
+                    <input type="text" name="email">
+                  </div>
+                  <div>
+                    <label> Address : </label>
+                    <input type="text"  name="add">
+                  </div>
+                </form>
+
+        <?php
+          $uid=$_GET['edit'];
+          $sql="update users set fname='$fname', lname='$lname', $mname='$mname', $username='$username', password='$password, contact='$contact', email='$email', address='$address' where uid=$uid;";
+          mysqli_query($db, $sql);
+          header('location:ownerclients.php');
+          echo '<script> alert("Record Edited Successfully."); </script>';
+        }
+      ?>
   <!-- footer section -->
   <?php
     include '../../footers/footer.php';
