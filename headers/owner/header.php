@@ -37,7 +37,7 @@
                         <a class="nav-link" href="ownerhistory.php"> History / Past <span class="sr-only">(current)</span></a>
                       </li>
                     <li class="nav-item">
-                    <a class="nav-link" href="../../index.php" onlclick="logout();"> Log Out </a>
+                    <a class="nav-link" href="../../index.php" onclick="logout()"> Log Out </a>
                     </li>
                   </ul>
                 </div>

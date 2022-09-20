@@ -11,6 +11,9 @@
             <a href="https://www.youtube.com/channel/UCXTr_ZVSEX1utCb7RRQi4Kw" target="_blank">
               <img src="../../images/youtube.png" alt="YouTube" id="yt">
             </a>
+            <a href="https://www.linkedin.com/company/shahabhayphotography" target="_blank">
+                <img src="../../images/linkedin.png" alt="LinkedIn" id="in">
+              </a>
             <a href="https://www.instagram.com/shahabhayphotographer/" target="_blank">
               <img src="../../images/instagram.png" alt="InstaGram" id="insta">
             </a>
@@ -26,7 +29,7 @@
 <section class="container-fluid footer_section">
   <div class="container">
     <p>
-      Developed By <a href="https://kalashshah19.github.io/SAP/kalash.html" class="kalash"> Kalash Shah </a>
+      Developed By <br> <a href="https://kalashshah19.github.io/SAP/kalash.html" class="kalash"> Kalash Shah </a> and <a href="" class="kalash"> Varshal Patel </a>
     </p>
   </div>
 </section>
@@ -41,6 +44,7 @@
 
     if(page=="index.php") {
         document.getElementById("yt").src="images/youtube.png";
+        document.getElementById("in").src="images/linkedin.png";
         document.getElementById("insta").src="images/instagram.png";
         document.getElementById("fb").src="images/fb.png";
         document.getElementById("jq").src="js/jquery-3.4.1.min.js";

@@ -25,6 +25,8 @@
   <link href="../../css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="../../css/responsive.css" rel="stylesheet" />
+
+  <script src="https://smtpjs.com/v3/smtp.js"></script>  
 </head>
 
 <body class="sub_page">
@@ -56,7 +58,7 @@
       <div class="">
         <div class="row">
           <div class="col-md-8 mx-auto">
-            <form action="" method="post">
+            <form method="post">
               <div class="contact_form-container">
                 <div>
                   <div>
@@ -71,7 +73,7 @@
                      <button style="border: 2px solid white;" type="submit" name="submit">
                       Login
                     </button> 
-                    <button  style="border: 2px solid white;" type="submit" name="forgot">
+                    <button  style="border: 2px solid white;" onclick="forgotpass()" type="submit" name="forgot">
                       Forgot Password
                     </button>
                 </div>
@@ -86,14 +88,13 @@
 
   <!-- Backend validation -->
   <?php
-    if(isset($_POST['submit']))
-    {
+    $db = mysqli_connect('localhost', 'root', '', 'sap');
+    if(isset($_POST['submit'])) {
       $user=$_POST['user'];
       $pass=$_POST['pass'];
       $login=0;
       
-      $db = mysqli_connect('localhost', 'root', '', 'sap');
-      $results = mysqli_query($db, "SELECT fname,username,password,usertype FROM users;");
+      $results = mysqli_query($db, "SELECT * FROM users;");
       while ($row = mysqli_fetch_array($results)) {
         $username=$row['username'];
         $password=$row['password'];
@@ -101,12 +102,14 @@
         if($username==$user && $password==$pass) {
           $login=1;
           $_SESSION['fname']=$row['fname'];
+          $_SESSION['uid']=$row['uid'];
+          $_SESSION['login']="true";
           break;
       }
     }
 
       if($login==1) {
-        echo '<script> alert("Login Successfull !!");</script>';
+        $_SESSION['msg']="Login Successfull.";
         if($type=="client")
           echo "<script type='text/javascript'>document.location.href='../client/clienthome.php';</script>";
         else if($type=="admin")
@@ -118,7 +121,44 @@
         echo '<script> alert("Login Failed. Enter Valid Credentials !!");</script>';
       }
     }    
-  ?>
+
+    if(isset($_POST['forgot'])){
+      $str="";
+      $sql="select email from users;";
+      $results = mysqli_query($db,$sql);
+      while ($row = mysqli_fetch_array($results)) {
+        $email=$row['email'];
+        $str=$str.$email.",";
+      }
+    }
+    ?>
+
+  <script>
+    function forgotpass() {
+      var email="";
+      var mails;
+      var phpmail="";
+      var i=0;
+      var flag=0;
+      email=prompt("Enter Your Email : ");
+      str="<?php echo $str;?>";
+      mails=str.split(",");
+      for(i;i<mails.length;i++) {
+        if(email==mails[i]){
+          flag=1;
+          phpmail=email;
+          break;
+      }
+    }
+      
+      if(flag==0){
+        alert("Enter Valid Email;"); 
+      }
+      else {
+        alert("OTP Has Been Sent to Your Email.");
+      }
+    }
+  </script>
 
   <!-- info section -->
   <?php

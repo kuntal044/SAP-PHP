@@ -39,7 +39,7 @@
                         <a class="nav-link" href="clientorders.php"> My Orders </a>
                       </li>
                     <li class="nav-item">
-                      <a class="nav-link" href="../../index.php" onlclick="logout();"> Log Out </a>
+                    <a class="nav-link" href="../../index.php" onclick="logout()"> Log Out </a>
                     </li>
                   </ul>
                 </div>
@@ -52,9 +52,6 @@
     </header>
 
 <script>
-    var path = window.location.pathname;
-    var page = path.split("/").pop();
-    // alert(page);
 
     if(page=="clienthome.php") {
         document.getElementById("home").className = "nav-item active";

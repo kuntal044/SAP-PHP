@@ -29,6 +29,13 @@
   <link href="../../css/style.css" rel="stylesheet" />
   <!-- responsive style -->
   <link href="../../css/responsive.css" rel="stylesheet" />
+
+  <style>
+    table,tr,td {
+      padding: 5px;
+      text-align: center;
+    }
+  </style>
 </head>
 
 <body class="sub_page">
@@ -90,6 +97,32 @@
                   <div>
                     <label> Phone Number : </label>
                     <input type="number" name="num">
+                  </div>
+                  <div>
+                    <label> Gender : </label>
+                    <table>
+                      <tr>
+                        <td>
+                          <input type="radio" id="male" name="gender" value="male"> 
+                        </td>
+                        <td>
+                          <label for="male"> Male </label>
+                        </td>
+                        <td>
+                          <input type="radio" id="female" name="gender" value="female">
+                        </td>
+                        <td>
+                          <label for="female"> Female </label>
+                        </td>
+                        <td>
+                          <td>
+                            <input type="radio" id="other" name="gender" value="other">
+                          </td>
+                          <td>
+                          <label for="other"> Other </label>
+                        </td>
+                      </tr>
+                    </table>
                   </div>
                   <div>
                     <label> Email : </label>

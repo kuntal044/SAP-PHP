@@ -1,3 +1,10 @@
+<?php 
+session_start();
+  if(!isset($_SESSION['login'])){
+    echo "Your are not a Valid User!! Go to <a href=\"../visitor/login.php\"> Login </a>";
+  }
+  else {
+?>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,7 +36,6 @@
     table, tr, td {
       border: 1px solid black;
       text-align: center;
-      padding: 5px;
     }
   </style>
 </head>
@@ -63,27 +69,26 @@
                   <form method="post">
                       <table>
                         <tr>
-                          <td> ID </td>
                           <td> First Name </td>
                           <td> Middle Name </td>
                           <td> Last Name </td>
                           <td> User Name </td>
                           <td> Password </td>
                           <td> Phone Number </td>
+                          <td> Gende </td>
                           <td> Email </td>
                           <td> Address </td>
+                          <td> User Type </td>
                           <td> Actions </td>
+
 
                         </tr>
                     <?php 
-                      $db = mysqli_connect('localhost', 'root', 'root', 'sap');
+                      $db = mysqli_connect('localhost', 'root', '', 'sap');
                       $sql="select * from users;";
                       $results = mysqli_query($db,$sql);
                       while ($data = mysqli_fetch_array($results)) { ?>
                         <tr>
-                          <td>
-                            <?php echo $data['uid']; ?>
-                          </td>
                           <td>
                             <?php echo $data['fname']; ?>
                           </td>
@@ -103,20 +108,25 @@
                             <?php echo $data['contact']; ?>
                           </td>
                           <td>
+                            <?php echo $data['gender']; ?>
+                          </td>
+                          <td>
                             <?php echo $data['email']; ?>
                           </td>
                           <td>
                             <?php echo $data['address']; ?>
+                            </td>
+                            <td>
+                              <?php echo $data['usertype']; ?>
                           </td>
                           <td>
-                            <a href="ownerclients.php?edit=<?php echo $data['uid'];?>"> Edit </a>
+                            <a href="ownerclients.php?edit=<?php echo $data['uid'];?>#edit"> Edit </a>
                             <a href="ownerclients.php?delete=<?php echo $data['uid'];?>"> Delete </a>
                           </td>
                         </tr> 
                         <?php
                       }
                     ?>
-
                       </table>
                     </form>
                 </div>
@@ -126,64 +136,99 @@
         </div>
       </section>
 
-  <?php
-      if(isset($_GET['del'])){
-    $uid=$_GET['del'];
-    $sql="Delete from info where id=$uid;";
-    mysqli_query($db, $sql);
-    $_SESSION['message']="Record Deleted Successfully.";
-    header('location: records.php');
-  ?>
-
 <?php
-        if(isset($_GET['edit'])){ ?>
-                <form method="POST">
-                  <div>
-                    <label> First Name : </label>
-                    <input type="text" name="fname">
-                  </div>
-                  <div>
-                    <label> Middle Name : </label>
-                    <input type="text" name="mname">
-                  </div>
-                  <div>
-                    <label> Last Name : </label>
-                    <input type="text" name="lname">
-                  </div>
-                  <div>
-                    <label> User Name : </label>
-                    <input type="text" name="user">
-                  </div>
-                  <div>
-                    <label> Password : </label>
-                    <input type="password" name="pass">
-                  </div>
-                  <div>
-                    <label> Confirm Password : </label>
-                    <input type="password" name="cpass">
-                  </div>
-                  <div>
-                    <label> Phone Number : </label>
-                    <input type="number" name="num">
-                  </div>
-                  <div>
-                    <label> Email : </label>
-                    <input type="text" name="email">
-                  </div>
-                  <div>
-                    <label> Address : </label>
-                    <input type="text"  name="add">
-                  </div>
-                </form>
-
+      if(isset($_GET['edit'])){ 
+        $uid=$_GET['edit'];
+        $sql="select * from users where uid=$uid;";
+        $results = mysqli_query($db,$sql);
+        while ($data = mysqli_fetch_array($results)) {
+        ?>
+      <center>
+        <div id="edit">
+        <h2> Edit Information </h2>
+        <table>
+        <form method="POST">
+          <tr>
+            <td><label> First Name : </label></td>
+            <td><input type="text" name="fname" value="<?php echo $data['fname'];?>"></td>
+          </tr>
+          <tr>
+            <td><label> Middle Name : </label></td>
+            <td><input type="text" name="mname" value="<?php echo $data['mname'];?>"></td>
+        </tr>
+          <tr>
+            <td><label> Last Name : </label></td>
+            <td><input type="text" name="lname" value="<?php echo $data['lname'];?>"></td>
+        </tr>
+          <tr>
+            <td><label> User Name : </label></td>
+            <td><input type="text" name="username" value="<?php echo $data['username'];?>"></td>
+        </tr>
+          <tr>
+            <td><label> Password : </label></td>
+            <td><input type="text" name="password" value="<?php echo $data['password'];?>"></td>
+        </tr>
+          <tr>
+            <td><label> Phone Number : </label></td>
+            <td><input type="number" name="contact" value="<?php echo $data['contact'];?>"></td>
+        </tr>
+        <tr>
+            <td><label> Gender : </label></td>
+            <td> Male <input type="radio" name="gender" value="male" <?php if($data['gender'] == "male") { echo "checked";} ?>>
+             Female <input type="radio" name="gender" value="female" <?php if($data['gender'] == "female") { echo "checked";} ?>>
+             Other <input type="radio" name="gender" value="other" <?php if($data['gender'] == "other") { echo "checked";} ?>>
+            </td>
+        </tr>
+          <tr>
+            <td><label> Email : </label></td>
+            <td><input type="email" name="email" value="<?php echo $data['email'];?>"></td>
+        </tr>
+          <tr>
+            <td><label> Address : </label></td>
+            <td><input type="text"  name="address" value="<?php echo $data['address'];?>"></td>
+        </tr>
+        <tr>
+            <td><label> user Type : </label></td>
+            <td><input type="text"  name="usertype" value="<?php echo $data['usertype'];?>"></td>
+        </tr>
+        
+          <tr> 
+            <td colspan="2"><input type="submit" name="update" value="Update"></td>
+        </tr>
+        </form>
+        </table>
+      </center>
+      <?php } } ?>
+      
         <?php
-          $uid=$_GET['edit'];
-          $sql="update users set fname='$fname', lname='$lname', $mname='$mname', $username='$username', password='$password, contact='$contact', email='$email', address='$address' where uid=$uid;";
-          mysqli_query($db, $sql);
-          header('location:ownerclients.php');
-          echo '<script> alert("Record Edited Successfully."); </script>';
-        }
+          if(isset($_POST['update'])) {
+              $fname=$_POST['fname'];
+              $mname=$_POST['mname'];
+              $lname=$_POST['lname'];
+              $username=$_POST['username'];
+              $password=$_POST['password'];
+              $contact=$_POST['contact'];
+              $gender=$_POST['gender'];
+              $email=$_POST['email'];
+              $address=$_POST['address'];
+              $usertype=$_POST['usertype'];
+              $sql="UPDATE `users` SET `fname`='$fname',`mname`='$mname',`lname`='$lname',`username`='$username',`password`='$password',`contact`='$contact',gender='$gender',`address`='$address',`email`='$email', usertype='$usertype'  WHERE uid=$uid;";
+              mysqli_query($db, $sql);
+              echo '<script> alert("Record Updated Successfully."); </script>';
+              echo '<script> document.location.href="ownerclients.php"; </script>';
+          }
       ?>
+
+    <?php
+      if(isset($_GET['delete'])){
+        $uid=$_GET['delete'];
+        header('location:ownerclients.php');
+        $sql="Delete from users where uid=$uid;";
+        mysqli_query($db, $sql);
+        echo '<script> alert("Record Deleted Successfully."); </script>';
+        echo '<script> document.location.href="ownerclients.php"; </script>';
+      }
+    ?>
   <!-- footer section -->
   <?php
     include '../../footers/footer.php';

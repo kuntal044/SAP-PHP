@@ -2,7 +2,6 @@
   session_start();
   $db = mysqli_connect('localhost', 'root', '', 'sap');
   $results = mysqli_query($db, "SELECT SrvEveName,SrvEveCharges FROM tbl_service_events;");
-  // unset($_COOKIE['values']);
 ?>
 <!DOCTYPE html>
 <html>
@@ -62,39 +61,47 @@
       <div class="book">
         <div class="row">
           <div class="col-md-8 mx-auto">
-            <form action="clientpayment.php" method="post">
+            <form method="post">
               <div class="contact_form-container">
                 <div> 
                   <label for="event"> <h5> Event Type </h5> </label> <br>
-                  <select id="event"> 
+                  <select name="event" id="event"> 
                     <option> Select </option>
                     <option value="prewedding"> Pre Wedding </option>
                     <option value="wedding"> Wedding </option>
                     <option value="birthday"> Birthday </option>
-                    <option value="inogration"> Inogration/Opening </option>
+                    <option value="inogration/opening"> Inogration/Opening </option>
                     <option value="anniversary"> Anniversary </option>
-                    <option value="vastu"> Vastu Poojan </option>
+                    <option value="vastu poojan"> Vastu Poojan </option>
                     <option value="party"> Party </option>
-                    <option value="competetions"> Competetions </option>
-                    <option value="school"> School Function </option>
+                    <option value="competetion"> Competetion </option>
+                    <option value="school function"> School Function </option>
                     <option value="corperate"> Corperate </option>
-                    <option value="portfolio"> Portfolio Shoot </option>
-                    <option value="festival"> Festival Shoot </option>
-                    <option value="musical"> Music / Concert / Opera  </option>
-                    <option value="sports"> Sports Tournaments </option>
-                    <option value="graduation"> College Graduation </option>
+                    <option value="portfolio shoot"> Portfolio Shoot </option>
+                    <option value="festival shoot"> Festival Shoot </option>
+                    <option value="music/concert/opera"> Music / Concert / Opera  </option>
+                    <option value="sports tournament"> Sports Tournament </option>
+                    <option value="graduation"> Graduation </option>
                     <option value="funeral"> Funeral </option>
-                    <option value="festival"> Festival Shoot </option>
-                    <option value="award"> Award Ceremony </option>
-                    <option value="political"> Political  </option>
-                    <option value="personalized"> Personalized Events </option>
+                    <option value="festival shoot"> Festival Shoot </option>
+                    <option value="award ceremony"> Award Ceremony </option>
+                    <option value="political event"> Political Event </option>
+                    <option onclick="per()" value="personalized"> Personalized Events </option>
                   </select>
                   <br> <br> <br> 
-                  
-                  <label for="personalized event"> <h5> Personalized Event Name </h5> </label>
-                  <input type="text" name="personalized event" id="personalized event"  class="book"> <br> <br>
 
-                  <label for="city"> <h5> Location :- </h5> </label> <br>
+                  <script>
+                    function per(){
+                      document.getElementById("per").style.display="block";
+                    }
+                  </script>
+
+                  <div id="per" style="display:none;">
+                    <label for="personalized"> <h5> Personalized Event Name </h5> </label>
+                    <input type="text" name="personalized" id="personalized"  class="book"> <br> <br>
+                  </div>
+
+                  <!-- <label for="city"> <h5> City :- </h5> </label> <br>
                   <select id="city"> 
                     <option> Select </option>
                     <optgroup label="Andaman and Nicobar Islands" id="Andaman and Nicobar Islands">
@@ -3934,15 +3941,17 @@
                       <option value="Uttar Dinajpur district">Uttar Dinajpur district</option>
                       <option value="Uttarpara Kotrung">Uttarpara Kotrung</option>
                     </optgroup>
+                  </select> <br> <br> <br> -->
 
-                  </select>
+                  <label for="baddress"> <h5> Address </h5> </label> <br>
+                  <textarea rows="7" style="resize:none;" cols="50" id="baddress" name="baddress"> </textarea>
 
                   <br> <br> <br>
                   <label for="start"> <h5> Start Date </h5> </label>
-                  <input type="date" name="start" id="start">  
+                  <input type="date" name="start" id="start">
                   
                   <br> <br>
-                  <label for="end"><h5> End Date </h5> </label>
+                  <label for="end"> <h5> End Date </h5> </label>
                   <input type="date" name="end" id="end">
                   <br> <br>
                   
@@ -3991,22 +4000,24 @@
                           ?>
                       <tr>
                         <td>
-                          <label for=" <?php echo $serv;?>"> <?php echo ucwords($serv); ?> </label>
+                          <label for="<?php echo $serv;?>"> <?php echo ucwords($serv); ?> </label>
                         </td>
                         <td>
-                          <input type="checkbox" id="<?php echo $serv;?> " onclick="est(this);" name="services[]" value="<?php echo $serv;?>">
+                          <input type="checkbox" id="<?php echo $serv;?>" onclick="est(this);" name="services[]" value="<?php echo $serv;?>">
                         </td>
                       </tr> 
                     <?php
                     }
                 ?>
                     </table> <br> 
-                    <h5> Estimated Budget = <span id="est" > 0 </span> </h5>
+                    <label for="total"> <h5> Estimated Budget </h5> </label>
+                    <input type="number" id="total" name="total" value="0" readonly>
+                    <!-- <h5> Estimated Budget = <span id="est"> 0 </span> </h5> -->
                     <br> <br>
                   </div>
                 </div>
-                <label for="personalized event"> <h4> Special Instructions </h4> </label>
-                <input type="text" name="personalized event" id="personalized event"  class="book"> <br> <br>
+                <label for="instruction"> <h4> Special Instructions </h4> </label>
+                <input type="text" name="instruction" id="instruction"  class="book"> <br> <br>
                   <p style="font-size: small;"> *There are Booking Charges of 100/- for Confirmation of your Booking. </p>
                   <div class=" d-flex justify-content-center ">
                     <button type="submit" name="submit">
@@ -4029,21 +4040,47 @@
   <?php
 
   if(isset($_POST['submit'])) {
-    $fname=$_POST['fname'];
-    $mname=$_POST['mname'];
-    $lname=$_POST['lname'];
-    $user=$_POST['user'];
-    $pass=$_POST['pass'];
-    $cpass=$_POST['cpass'];
-    $num=$_POST['num'];
-    $email=$_POST['email'];
-    $add=$_POST['add'];
+    $str="";
+    $uid=$_SESSION['uid'];
+    $event=$_POST['event'];
+    $personalized=$_POST['personalized'];
+    $baddress=$_POST['baddress'];
+    $bstart=$_POST['start'];
+    $bend=$_POST['end'];
+    $total=$_POST['total'];
+    $instruction=$_POST['instruction'];
+    $services=$_POST['services'];
+
+    $sql="INSERT INTO booking(event,personalized, uid, start, end, baddress, travelcharges, instructions, totalamount) VALUES ('$event', '$personalized', '$uid', '$bstart', '$bend', '$baddress', '$travelcharges', '$instruction', '$total');";
+    mysqli_query($db, $sql);
+    $_SESSION['msg'] = "New Record Inserted";
+    $sql="select * from booking;";
+    $results = mysqli_query($db,$sql);
+    while ($data = mysqli_fetch_array($results)) {
+        if($data['uid']==$uid && $data['event']==$event && $data['totalamount']==$total){
+          $bid=$data['bid'];
+          break;
+        }
+      }
+      foreach($services as $val)
+      { 
+        $sql1="select * from tbl_service_events;";
+        $results = mysqli_query($db,$sql);
+        while ($data = mysqli_fetch_array($results)) {
+          if($data['SrvEveName']==$val){
+            $srvid=$data['SrvEveID'];
+          }
+        }
+        $sql="INSERT INTO bookingdetails(bid,SrvEveID) VALUES ('$bid','$srvid');";
+        mysqli_query($db, $sql);
+      }
+    echo '<script> alert("Your Booking Request has Been Placed.");</script>';
   }
 
   while ($row = mysqli_fetch_array($results)) {
     $amt[$row['SrvEveName']]=$row['SrvEveCharges'];
   }
-  // $values="<script> document.write(str); </script>";
+  // $values="<script> document.write(str); </>";
   // echo $values;
 
 ?>
@@ -4078,7 +4115,7 @@
         rs = Number(arr[key]);
         if(key == checkbox.value) {
           budget=add(budget,rs);
-          document.getElementById('est').innerHTML=budget; 
+          document.getElementById('total').value=budget; 
         }
       }
       // alert(values);
@@ -4094,7 +4131,7 @@
         rs = Number(arr[key]);
         if(key == checkbox.value) {
           budget=subt(budget,rs);
-          document.getElementById('est').innerHTML=budget; 
+          document.getElementById('total').value=budget; 
         }
       }
       // alert(values);

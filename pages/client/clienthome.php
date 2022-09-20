@@ -1,5 +1,9 @@
 <?php
   session_start();
+  if(!isset($_SESSION['login'])){
+    echo "Your are not a Valid User!! Go to <a href=\"../visitor/login.php\"> Login </a>";
+  }
+  else {
 ?>
 <!DOCTYPE html>
 <html>
@@ -48,7 +52,7 @@
       <div class="container">
         <div class="heading_container">
           <h2>
-            User's Dashboard
+            Dashboard
           </h2>
           <p>
             The Engine to run all the Operations
@@ -58,9 +62,12 @@
           <div class="row">
             <div class="col-md-8 mx-auto">
                 <div class="contact_form-container">
-                  <div>
-                    <h2> Welcome, <?php echo $_SESSION['fname']; ?> .</h2> <br>
+                  <?php if(isset($_SESSION['msg'])) { ?>
+                  <div id="msg">
+                    <h2> <?php echo $_SESSION['msg']; unset($_SESSION['msg']); ?> <br>
                   </div>
+                  <?php } ?>
+                  <h2> Welcome, <?php echo $_SESSION['fname']; ?> .</h2> <br>
                   <!-- <br> This is Tutorial Video :- <br> <br>
                   <iframe width="500" height="315" src="https://www.youtube.com/embed/1wKaSofErXk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> -->
                   <div> 
@@ -188,7 +195,7 @@
   ?>
   <!-- footer section -->
 
-
+<?php } ?>
 </body>
 
 </html>

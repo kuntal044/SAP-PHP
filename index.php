@@ -1,3 +1,11 @@
+<?php
+  session_start();
+  if(isset($_SESSION['login']) || isset($_SESSION['fname'])) {
+    unset($_SESSION['login']);
+    unset($_SESSION['fname']);
+    unset($_SESSION);
+  }
+?>
 <!DOCTYPE html>
 <html>
 <head>
